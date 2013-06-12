@@ -1,0 +1,11 @@
+<div class="overflow-scroll">
+  <ul>
+    {#items}
+    <li data-guid="{guid}">
+      <div class="image" style="background-image: url({img_url});"></div>
+      <div class="price">{price_formatted}</div>
+      <div class="title">{title}</div>
+    </li>
+    {/items}
+  </ul>
+</div>

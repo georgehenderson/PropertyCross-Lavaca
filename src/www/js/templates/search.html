@@ -1,0 +1,37 @@
+<p>
+  {@msg key="instructions"/}
+</p>
+<form action="" class="search">
+  <input name="searchText" type="text">
+  <input type="submit" class="button" value="Go">
+  <div class="location button">My Location</div>
+</form>
+<div class="search-lists">
+{?error}
+  <p>{error}</p>
+{:else}
+  {?showLocations}
+    <div class="list-locations">
+      <h2>Please select a location below:</h2>
+      <ul>
+        {#search}
+          {#locations}
+          <li data-search-key="{place_name}"><span class="title">{long_title}</span></li>
+          {/locations}
+        {/search}
+      </ul>
+    </div>
+  {:else}
+    {?recentSearches}
+    <div class="recent-searches">
+      <h2>Recent searches:</h2>
+      <ul>
+        {#recentSearches}
+        <li data-search-key="{place_name}"><span class="title">{long_title}</span> ({total_results})</li>
+        {/recentSearches}
+      </ul>
+    </div>
+    {/recentSearches}
+  {/showLocations}
+{/error}
+</div>
