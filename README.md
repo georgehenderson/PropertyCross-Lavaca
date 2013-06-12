@@ -3,6 +3,10 @@ Lavaca PropertyCross
 
 An implementation of the PropertyCross app using Lavaca.
 
+##Spec Guidelines
+
+[App Specifications](https://github.com/tastejs/PropertyCross/tree/master/specification)
+
 ## Manual Setup
 
 1. __Get the code__
