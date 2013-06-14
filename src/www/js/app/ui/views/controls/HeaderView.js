@@ -1,6 +1,7 @@
 define(function(require) {
 
   var View = require('lavaca/mvc/View'),
+      $ = require('$'),
       stateModel = require('app/models/StateModel');
   require('rdust!templates/controls/header-view');
 
@@ -13,8 +14,9 @@ define(function(require) {
       View.apply(this, arguments);
 
       this.mapEvent({
+        '.toggle-favorite': {tap: this.onTapToggleFavorite.bind(this)},
         model: {
-          change: this.onModelChange.bind(this)
+          reset: this.onModelReset.bind(this)
         }
       });
     }, {
@@ -31,8 +33,20 @@ define(function(require) {
      */
     className: 'header',
 
-    onModelChange: function() {
-      this.redraw('.page-title');
+    onModelReset: function() {
+      this.redraw();
+    },
+    onTapToggleFavorite: function() {
+      if (this.model.get('isFavorited')) {
+        this.model.removeFavorite(this.model.get('favoriteId'));
+      } else {
+        var layer = $(document.body).find('#view-root > .view > .view-interior').data('view');
+        this.model.addFavorite(layer.model);
+      }
+      setTimeout(function() {
+        this.redraw('.toggle-favorite');
+      }.bind(this), 0);
+      
     }
   });
 

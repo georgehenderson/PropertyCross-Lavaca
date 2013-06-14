@@ -233,18 +233,6 @@ define(function(require) {
    * @param {String} title  The title of the page state
    * @param {String} url  The URL of the page state
    */
-  History.current = function() {
-    return History.init().current.apply(_hist, arguments);
-  };
-  /**
-   * @method replace
-   * @static
-   * Replaces the current record in the history
-   *
-   * @param {Object} state  A data object associated with the page state
-   * @param {String} title  The title of the page state
-   * @param {String} url  The URL of the page state
-   */
   History.replace = function() {
     History.init().replace.apply(_hist, arguments);
   };

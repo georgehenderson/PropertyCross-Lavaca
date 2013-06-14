@@ -4,8 +4,7 @@ define(function(require) {
       $ = require('$'),
       router = require('lavaca/mvc/Router'),
       stateModel = require('app/models/StateModel'),
-      Template = require('lavaca/ui/Template'),
-      History = require('lavaca/net/History');
+      Template = require('lavaca/ui/Template');
   require('rdust!templates/listings');
   require('rdust!templates/listings-list-item');
 
@@ -47,7 +46,6 @@ define(function(require) {
       template.render({items: this.model.get('lastFetchedModels')})
         .success(function(html) {
           this.el.find('ul').append(html);
-          var current = History.current();
           History.replace(this.model.toObject(), this.model.get('pageTitle'), location.hash.split('#')[1]);
         }.bind(this));
     },

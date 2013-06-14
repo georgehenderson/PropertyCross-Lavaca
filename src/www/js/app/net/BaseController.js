@@ -13,12 +13,12 @@ define(function(require) {
       Controller.apply(this, arguments);
     }, {
     updateState: function(historyState, title, url, stateProps){
-      var defaultStateProps = {pageTitle: title};
+      var defaultStateProps = {pageTitle: title, showFavoriteButton: false, favoriteId: null};
       this.history(historyState, title, url)();
 
-      stateProps = merge(stateProps || {}, defaultStateProps);
+      stateProps = merge(defaultStateProps, stateProps || {});
       stateModel.apply(stateProps, true);
-      stateModel.trigger('change');
+      stateModel.trigger('reset');
     }
   });
 

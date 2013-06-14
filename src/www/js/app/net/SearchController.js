@@ -54,7 +54,7 @@ define(function(require) {
       model = model ? new Model(model) : params.listing;
       return this
         .view(null, ListingView, model)
-        .then(this.updateState(model.toObject(), model.get('title'), params.url));
+        .then(this.updateState(model.toObject(), model.get('title'), params.url, {showFavoriteButton: true, favoriteId: model.get('guid')}));
     }
   });
 
