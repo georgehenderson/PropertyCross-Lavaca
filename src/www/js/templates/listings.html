@@ -1,11 +1,13 @@
 <div class="overflow-scroll">
   <ul>
-    {#items}
-    <li data-guid="{guid}">
-      <div class="image" style="background-image: url({img_url});"></div>
-      <div class="price">{price_formatted}</div>
-      <div class="title">{title}</div>
-    </li>
-    {/items}
+    {>"templates/listings-list-item"/}
   </ul>
+  <div class="load-more {?hasMoreResults}has-more{/hasMoreResults}">
+    {?hasMoreResults}
+      <div>Load more...</div>
+      <div>Results for {longTitle}, showing {#items}{@eq key="0" value="{$idx}"}{$len}{/eq}{/items} of {total_results} properties</div>
+    {:else}
+      <span>No More Results</span>
+    {/hasMoreResults}
+  </div>
 </div>

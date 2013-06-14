@@ -2,8 +2,12 @@ define(function(require) {
 
   var BaseView = require('./BaseView'),
       $ = require('$'),
-      router = require('lavaca/mvc/Router');
+      router = require('lavaca/mvc/Router'),
+      stateModel = require('app/models/StateModel'),
+      Template = require('lavaca/ui/Template'),
+      History = require('lavaca/net/History');
   require('rdust!templates/listings');
+  require('rdust!templates/listings-list-item');
 
   /**
    * @class app.ui.ListingsView
@@ -13,7 +17,11 @@ define(function(require) {
   var ListingsView = BaseView.extend(function() {
     BaseView.apply(this, arguments);
     this.mapEvent({
-      'li': {tap: this.onTapListing.bind(this)}
+      'li': {tap: this.onTapListing.bind(this)},
+      '.has-more': {tap: this.onTapLoadMore.bind(this)},
+      model: {
+        reset: this.onModelReset.bind(this)
+      }
     });
   }, {
     /**
@@ -28,6 +36,26 @@ define(function(require) {
      * A class name added to the view container
      */
     className: 'listings',
+    onModelReset: function() {
+      stateModel.set('pageTitle', this.model.get('pageTitle'));
+      stateModel.trigger('change');
+      this.renderCells();
+      this.redraw('.load-more');
+    },
+    renderCells: function() {
+      var template = Template.get('templates/listings-list-item');
+      template.render({items: this.model.get('lastFetchedModels')})
+        .success(function(html) {
+          this.el.find('ul').append(html);
+          var current = History.current();
+          History.replace(this.model.toObject(), this.model.get('pageTitle'), location.hash.split('#')[1]);
+        }.bind(this));
+    },
+    onTapLoadMore: function(e) {
+      e.stopPropagation();
+      this.el.find('.load-more').html('Loading ...');
+      this.model.fetch();
+    },
     onTapListing: function(e) {
       var li = $(e.currentTarget),
           guid = li.data('guid'),

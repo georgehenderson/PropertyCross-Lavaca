@@ -5,7 +5,7 @@ define(function(require) {
       ListingView = require('app/ui/views/ListingView'),
       BaseController = require('./BaseController'),
       SearchModel = require('app/models/SearchModel'),
-      Collection = require('lavaca/mvc/Collection'),
+      ListingCollection = require('app/models/ListingCollection'),
       Model = require('lavaca/mvc/Model');
 
   /**
@@ -35,13 +35,16 @@ define(function(require) {
         this.redirect('/');
         return;
       }
-      model = new Collection(model ? model.items : params.listings);
+      var listingCollection = new ListingCollection(model ? model.items : params.listings);
       if (params.search) {
-        model.apply(params.search);
+        listingCollection.apply(params.search);
+      } else {
+        listingCollection.apply(model);
+        listingCollection.setupComputedProperties();
       }
       return this
-        .view(null, ListingsView, model)
-        .then(this.updateState(model.toObject(), model.count() + ' of ' + model.get('total_results') +' matches', params.url));
+        .view(null, ListingsView, listingCollection)
+        .then(this.updateState(listingCollection.toObject(), listingCollection.get('pageTitle'), params.url));
     },
     listing: function(params, model) {
       if (!model && !params.listing) {
