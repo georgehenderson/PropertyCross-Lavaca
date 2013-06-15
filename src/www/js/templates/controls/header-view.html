@@ -1,4 +1,7 @@
 <div class="page-title">{pageTitle}</div>
 {?showFavoriteButton}
-<div class="button toggle-favorite {?isFavorited}favorited{/isFavorited}">{?isFavorited}Unfavorite{:else}Add Favorite{/isFavorited}</div>
+<div class="button right toggle-favorite {?isFavorited}favorited{/isFavorited}">{?isFavorited}Unfavorite{:else}Add Favorite{/isFavorited}</div>
 {/showFavoriteButton}
+{?showFavorites}
+<a class="button right" href="/favorites">Favorites</a>
+{/showFavorites}

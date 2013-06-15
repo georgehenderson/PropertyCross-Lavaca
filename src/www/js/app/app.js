@@ -32,7 +32,9 @@ define(function(require) {
     this.router.add({
       '/': [SearchController, 'home'],
       '/listings/{placeName}': [SearchController, 'listings'],
-      '/listings/{placeName}/{guid}': [SearchController, 'listing']
+      '/listings/{placeName}/{guid}': [SearchController, 'listing'],
+      '/favorites': [SearchController, 'favorites'],
+      '/favorites/{guid}': [SearchController, 'listing']
     });
     stateModel.set('lang', localStore.get('lang') || 'en_US');
     //initialize translations

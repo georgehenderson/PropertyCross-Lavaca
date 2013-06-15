@@ -13,7 +13,7 @@ define(function(require) {
       Controller.apply(this, arguments);
     }, {
     updateState: function(historyState, title, url, stateProps){
-      var defaultStateProps = {pageTitle: title, showFavoriteButton: false, favoriteId: null};
+      var defaultStateProps = {pageTitle: title, showFavoriteButton: false, favoriteId: null, showFavorites: false};
       this.history(historyState, title, url)();
 
       stateProps = merge(defaultStateProps, stateProps || {});
