@@ -30,6 +30,7 @@ define(function(require) {
         this.responseFilter.apply(this, arguments);
       }.bind(this))
       .error(function(data) {
+        this.set('search', null);
         this.set('error', data.error);
         this.trigger('reset');
       }.bind(this));
