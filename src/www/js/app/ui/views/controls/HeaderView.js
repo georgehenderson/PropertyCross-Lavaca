@@ -15,6 +15,7 @@ define(function(require) {
 
       this.mapEvent({
         '.toggle-favorite': {tap: this.onTapToggleFavorite.bind(this)},
+        '.back': {tap: function() { history.back(); }},
         model: {
           reset: this.onModelReset.bind(this)
         }

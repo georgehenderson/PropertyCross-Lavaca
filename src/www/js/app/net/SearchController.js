@@ -31,7 +31,7 @@ define(function(require) {
       }
       return this
         .view('home', SearchView, model)
-        .then(this.updateState(null, 'PropertyCross', params.url, {showFavorites: true}));
+        .then(this.updateState(null, 'PropertyCross', params.url, {showFavorites: true, showBack: false}));
     },
     listings: function(params, model) {
       if (!model && !params.listings) {
