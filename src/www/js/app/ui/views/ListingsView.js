@@ -4,7 +4,8 @@ define(function(require) {
       $ = require('$'),
       router = require('lavaca/mvc/Router'),
       stateModel = require('app/models/StateModel'),
-      Template = require('lavaca/ui/Template');
+      Template = require('lavaca/ui/Template'),
+      History = require('lavaca/net/History');
   require('rdust!templates/listings');
   require('rdust!templates/listings-list-item');
 
@@ -37,7 +38,7 @@ define(function(require) {
     className: 'listings',
     onModelReset: function() {
       stateModel.set('pageTitle', this.model.get('pageTitle'));
-      stateModel.trigger('change');
+      stateModel.trigger('reset');
       this.renderCells();
       this.redraw('.load-more');
     },
