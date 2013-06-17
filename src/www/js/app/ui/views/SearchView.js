@@ -17,9 +17,12 @@ define(function(require) {
       'form': {submit: this.onFormSubmit.bind(this)},
       'input': {keypress: this.onInputKeypress.bind(this)},
       '.location.button': {tap: this.onTapMyLocation.bind(this)},
-      '.list-locations li, .recent-searches li': {tap: this.onTapLocationListItem.bind(this)}
+      '.list-locations li, .recent-searches li': {tap: this.onTapLocationListItem.bind(this)},
+      model: {
+        fetchSuccess: this.onChangeSearch.bind(this),
+        fetchError: this.onChangeSearch.bind(this)
+      }
     });
-    this.model.on('reset', this.onChangeSearch, this);
   }, {
     /**
      * @field {String} template

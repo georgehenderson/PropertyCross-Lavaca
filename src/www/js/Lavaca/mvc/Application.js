@@ -10,8 +10,7 @@ define(function(require) {
       Template = require('lavaca/ui/Template'),
       Config = require('lavaca/util/Config'),
       Promise = require('lavaca/util/Promise'),
-      ChildBrowser = require('lavaca/env/ChildBrowser'),
-      Translation = require('lavaca/util/Translation');
+      ChildBrowser = require('lavaca/env/ChildBrowser');
   require('jquery-mobile/events/touch');
   require('jquery-mobile/events/orientationchange');
 

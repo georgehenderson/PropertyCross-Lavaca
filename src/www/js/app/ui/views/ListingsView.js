@@ -20,7 +20,7 @@ define(function(require) {
       'li': {tap: this.onTapListing.bind(this)},
       '.has-more': {tap: this.onTapLoadMore.bind(this)},
       model: {
-        reset: this.onModelReset.bind(this)
+        fetchSuccess: this.onModelReset.bind(this)
       }
     });
   }, {

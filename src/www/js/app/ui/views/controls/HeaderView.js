@@ -46,7 +46,7 @@ define(function(require) {
       }
       setTimeout(function() {
         this.redraw('.toggle-favorite');
-      }.bind(this), 0);
+      }.bind(this), 500);
       
     }
   });

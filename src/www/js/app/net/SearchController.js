@@ -9,8 +9,6 @@ define(function(require) {
       ListingCollection = require('app/models/ListingCollection'),
       stateModel = require('app/models/StateModel'),
       Collection = require('lavaca/mvc/Collection');
-      Model = require('lavaca/mvc/Model');
-
   /**
    * @class app.net.SearchController
    * @super app.net.BaseController
@@ -35,8 +33,11 @@ define(function(require) {
     },
     listings: function(params, model) {
       if (!model && !params.listings) {
-        this.redirect('/');
-        return;
+        model = {
+          items: [],
+          page: 0,
+          placeName: params.placeName
+        };
       }
       var listingCollection = new ListingCollection(model ? model.items : params.listings);
       if (params.search) {
@@ -44,6 +45,9 @@ define(function(require) {
       } else {
         listingCollection.apply(model);
         listingCollection.setupComputedProperties();
+      }
+      if (listingCollection.count() === 0) {
+        listingCollection.fetch();
       }
       return this
         .view(null, ListingsView, listingCollection)

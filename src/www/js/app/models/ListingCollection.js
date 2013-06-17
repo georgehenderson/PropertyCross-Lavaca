@@ -1,53 +1,84 @@
 define(function(require) {
   var Collection = require('lavaca/mvc/Collection'),
-      service = require('app/data/NestoriaService');
+      merge = require('mout/object/merge'),
+      Translation = require('lavaca/util/Translation');
 
   var ListingCollection = Collection.extend(function() {
     Collection.apply(this, arguments);
     this.setupComputedProperties();
   }, {
+    defaultQueryParams: {
+      action: 'search_listings',
+      country: 'uk',
+      encoding: 'json',
+      listing_type: 'buy',
+      pretty: 1
+    },
     fetch: function() {
-      var params = {
+      var params = merge(this.defaultQueryParams, {
             place_name: this.get('placeName'),
             page: parseInt(this.get('page'), 10) + 1
-          };
-      this.search(params);
+          });
+      Collection.prototype.fetch.call(this, 'api', {dataType: 'jsonp', data: params});
     },
-    search: function(params) {
-      return service.request('search_listings', null, params).then(function() {
-        this.responseFilter.apply(this, arguments);
-      }.bind(this))
-      .error(function(data) {
-        this.set('error', data.error);
-        this.trigger('reset');
-      }.bind(this));
-    },
-    responseFilter: function(data) {
-      if (data.listings && data.listings.length) {
-        this.apply({
-          lastFetchedModels: data.listings,
-          page: data.page
-        });
-        this.add(data.listings);
+    onFetchSuccess: function(response) {
+      response = this.parse(response.response);
+      var successStatusCodes = ['100','101','110'],
+          ambiguousStatusCodel = ['200','202'],
+          responseCode = response.application_response_code,
+          errorMessage;
+      if (successStatusCodes.indexOf(responseCode) > -1
+        || ambiguousStatusCodel.indexOf(responseCode) > -1) {
+        if (this.responseFilter && typeof this.responseFilter === 'function') {
+          response = this.responseFilter(response);
+        }
+        this.apply(response, true);
+        this.add(response.items);
+        this.trigger('fetchSuccess', {response: response});
+      } else {
+        if (response === 'unknown location') {
+          errorMessage = Translation.get('not_matched');
+        } else if(responseCode === '210') {
+          errorMessage = Translation.get('location_not_found');
+        } else {
+          errorMessage = Translation.get('error_offline');
+        }
+        response = {
+          error: errorMessage
+        };
+        this.apply(response, true);
+        this.trigger('fetchError', {error: response});
       }
-      this.trigger('reset');
+    },
+    responseFilter: function(response) {
+      var data = {};
+      if (response.listings && response.listings.length) {
+        data = response;
+        data.items = response.listings;
+        data.page = response.page;
+        data.lastFetchedModels = response.listings;
+      }
+      return data;
     },
     setupComputedProperties: function() {
       this.apply({
         hasMoreResults: this.hasMoreResults.bind(this),
         longTitle: this.getLongTitle.bind(this),
-        placeName: this.getPlaceName.bind(this),
         pageTitle: this.getPageTitle.bind(this)
       });
+      if (!this.get('placeName')) {
+
+        this.set('placeName', this.getPlaceName.bind(this));
+      }
     },
     hasMoreResults: function() {
       return this.count() < this.get('total_results');
     },
     getLongTitle: function() {
-      return this.get('locations')[0].long_title;
+      return this.get('locations') ? this.get('locations')[0].long_title : '';
     },
     getPlaceName: function() {
-      return this.get('locations')[0].place_name;
+      return this.get('locations') ? this.get('locations')[0].place_name : '';
     },
     getPageTitle: function() {
       return this.count() + ' of ' + this.get('total_results') + ' matches';
