@@ -170,7 +170,7 @@ define(function(require) {
         if (this.position < 0) {
           this.position = 0;
         }
-        _insertState(this, this.position, _currentId || 0, state, title, url);
+        _insertState(this, this.position, typeof _currentId !== 'undefined' ? _currentId : uuid('history'), state, title, url);
       }
     },
     /**
