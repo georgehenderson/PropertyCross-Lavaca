@@ -8,7 +8,8 @@ define(function(require) {
       SearchModel = require('app/models/SearchModel'),
       ListingCollection = require('app/models/ListingCollection'),
       stateModel = require('app/models/StateModel'),
-      Collection = require('lavaca/mvc/Collection');
+      Collection = require('lavaca/mvc/Collection'),
+      Model = require('lavaca/mvc/Model');
   /**
    * @class app.net.SearchController
    * @super app.net.BaseController
@@ -24,9 +25,7 @@ define(function(require) {
      * @return {Lavaca.util.Promise}  A promise
      */
     home: function(params, model) {
-      if (!model) {
-        model = new SearchModel();
-      }
+      model = new SearchModel();
       return this
         .view('home', SearchView, model)
         .then(this.updateState(null, 'PropertyCross', params.url, {showFavorites: true, showBack: false}));
@@ -55,7 +54,7 @@ define(function(require) {
     },
     listing: function(params, model) {
       if (!model && !params.listing) {
-        this.redirect('/', true);
+        this.redirect('/');
         return;
       }
       model = model ? new Model(model) : params.listing;
