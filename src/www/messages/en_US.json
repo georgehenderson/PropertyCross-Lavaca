@@ -1,5 +1,5 @@
 {
-  "instructions": "Use the form below to search for houses to buy. You can search by place-name, postcode, or click 'My location', to search in your current location!",
+  "instructions": "Use the form below to search for houses to buy. You can search by place-name, postcode, or tap the compass to search in your current location.",
   "zero_properties": "There were no properties found for the given location.",
   "not_matched": "The location given was not recognised.",
   "location_not_enabled": "The use of location is currently disabled.",
