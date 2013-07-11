@@ -1,6 +1,5 @@
 define(function(require) {
   var History = require('lavaca/net/History');
-  var Detection = require('lavaca/env/Detection');
   var SearchController = require('./net/SearchController');
   var Connectivity = require('lavaca/net/Connectivity');
   var Application = require('lavaca/mvc/Application');
@@ -23,11 +22,6 @@ define(function(require) {
    * Global application-specific object
    */
   var app = new Application(function() {
-     // Demonstration of extending Detection module
-    Detection.addCustomDetection(!Detection.mobileOS || Detection.otherBrowser, 'nonMobile');
-    Detection.addCustomDetection(function() {
-      return Detection.agent.search(/chrome|safari/i) > -1 && Detection.viewportWidth > 1024;
-    }, 'wideWebkit');
     // Initialize the routes
     this.router.add({
       '/': [SearchController, 'home'],

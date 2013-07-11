@@ -64,7 +64,7 @@ define(function(require) {
     },
     favorites: function(params, model) {
       var favorites = stateModel.get('favorites');
-      if (!favorites.length) {
+      if (!favorites || !favorites.length) {
         this.redirect('/');
         return;
       }
