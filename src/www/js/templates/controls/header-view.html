@@ -1,10 +1,10 @@
 <div class="page-title">{pageTitle}</div>
 {?showBack}
-<div class="button back">Back</div>
+<div class="button back icon-arrow-left"></div>
 {/showBack}
 {?showFavoriteButton}
-<div class="button right toggle-favorite {?isFavorited}favorited{/isFavorited}">{?isFavorited}Unfavorite{:else}Add Favorite{/isFavorited}</div>
+<div class="button right icon-heart toggle-favorite {?isFavorited}favorited icon-red {:else}icon-black{/isFavorited}"></div>
 {/showFavoriteButton}
 {?showFavorites}
-<a class="button right" href="/favorites">Favorites</a>
+<a class="button right icon-heart icon-black" href="/favorites"></a>
 {/showFavorites}

@@ -5,10 +5,10 @@ branches="master 1.0.6 amd grunt"
 use_npm="amd grunt"
 tmp="lavaca.zip"
 default_app_name=lavaca_app
-echo "Which branch of Lavaca you need?"
+echo "Which branch of Lavaca do you need?"
 select branch in $branches; do
 	case $branch in
-		master|1\.0\.6|amd|grunt) 
+		master|2.\.0.\1|amd|grunt) 
 			break;;
 		*) 
 			echo "Must select one of the options. Try Again.";;
