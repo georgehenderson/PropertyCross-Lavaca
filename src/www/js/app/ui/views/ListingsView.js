@@ -5,7 +5,8 @@ define(function(require) {
       router = require('lavaca/mvc/Router'),
       stateModel = require('app/models/StateModel'),
       Template = require('lavaca/ui/Template'),
-      History = require('lavaca/net/History');
+      History = require('lavaca/net/History'),
+      debounce = require('mout/function/debounce');
   require('rdust!templates/listings');
   require('rdust!templates/listings-list-item');
 
@@ -36,6 +37,11 @@ define(function(require) {
      * A class name added to the view container
      */
     className: 'listings',
+    infiniteScrollOffset: 100,
+    onRenderSuccess: function() {
+      BaseView.prototype.onRenderSuccess.apply(this, arguments);
+      this.el.find('.overflow-scroll').on('scroll.'+this.id, debounce(this.onScroll.bind(this), 1000));
+    },
     onModelReset: function() {
       stateModel.set('pageTitle', this.model.get('pageTitle'));
       stateModel.trigger('reset');
@@ -50,10 +56,13 @@ define(function(require) {
           History.replace(this.model.toObject(), this.model.get('pageTitle'), location.hash.split('#')[1]);
         }.bind(this));
     },
-    onTapLoadMore: function(e) {
-      e.stopPropagation();
+    loadMore: function() {
       this.el.find('.load-more').html('Loading ...');
       this.model.fetch();
+    },
+    onTapLoadMore: function(e) {
+      e.stopPropagation();
+      this.loadMore();
     },
     onTapListing: function(e) {
       var li = $(e.currentTarget),
@@ -62,6 +71,16 @@ define(function(require) {
       if (listing) {
         router.exec('/listings/' + this.model.get('placeName') + '/' + guid, null, {listing: listing});
       }
+    },
+    onScroll: function(e) {
+      var container = $(e.currentTarget);
+      if (container[0].scrollHeight - container.scrollTop() < container.outerHeight() + this.infiniteScrollOffset) {
+        this.loadMore();
+      }
+    },
+    dispose: function() {
+      this.el.find('.overflow-scroll').off('scroll.'+this.id);
+      BaseView.prototype.dispose.apply(this, arguments);
     }
 
   });
