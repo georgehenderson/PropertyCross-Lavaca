@@ -1,7 +1,8 @@
 define(function(require) {
   var Collection = require('lavaca/mvc/Collection'),
       merge = require('mout/object/merge'),
-      Translation = require('lavaca/util/Translation');
+      Translation = require('lavaca/util/Translation'),
+      ListingModel = require('app/models/ListingModel');
 
   var ListingCollection = Collection.extend(function() {
     Collection.apply(this, arguments);
@@ -14,6 +15,7 @@ define(function(require) {
       listing_type: 'buy',
       pretty: 1
     },
+    TModel: ListingModel,
     fetch: function() {
       var params = merge(this.defaultQueryParams, {
             place_name: this.get('placeName'),

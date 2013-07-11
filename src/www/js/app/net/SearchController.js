@@ -9,7 +9,7 @@ define(function(require) {
       ListingCollection = require('app/models/ListingCollection'),
       stateModel = require('app/models/StateModel'),
       Collection = require('lavaca/mvc/Collection'),
-      Model = require('lavaca/mvc/Model');
+      ListingModel = require('app/models/ListingModel');
   /**
    * @class app.net.SearchController
    * @super app.net.BaseController
@@ -57,10 +57,10 @@ define(function(require) {
         this.redirect('/');
         return;
       }
-      model = model ? new Model(model) : params.listing;
+      model = model ? new ListingModel(model) : params.listing;
       return this
         .view(null, ListingView, model)
-        .then(this.updateState(model.toObject(), model.get('title'), params.url, {showFavoriteButton: true, favoriteId: model.get('guid')}));
+        .then(this.updateState(model.toObject(), model.get('shortTitle'), params.url, {showFavoriteButton: true, favoriteId: model.get('guid')}));
     },
     favorites: function(params, model) {
       var favorites = stateModel.get('favorites');

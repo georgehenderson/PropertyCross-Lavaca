@@ -62,7 +62,7 @@ define(function(require) {
           searchKey = li.data('search-key');
       this.locationSearchKey = searchKey;
       this.model.searchText(searchKey);
-      this.el.find('[name="searchText"]').val(li.find('span').text());
+      this.el.find('[name="searchText"]').val(li.find('span.title').text());
     },
     onTapMyLocation: function() {
       if (navigator.geolocation) {
