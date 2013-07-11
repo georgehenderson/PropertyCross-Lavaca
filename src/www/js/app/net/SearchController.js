@@ -57,10 +57,12 @@ define(function(require) {
         this.redirect('/');
         return;
       }
-      model = model ? new Model(model) : params.listing;
+      var model = model ? new Model(model) : params.listing,
+          title = model.get('title').split(','),
+          title = title[0] + ", " + title[1];
       return this
         .view(null, ListingView, model)
-        .then(this.updateState(model.toObject(), model.get('title'), params.url, {showFavoriteButton: true, favoriteId: model.get('guid')}));
+        .then(this.updateState(model.toObject(), title, params.url, {showFavoriteButton: true, favoriteId: model.get('guid')}));
     },
     favorites: function(params, model) {
       var favorites = stateModel.get('favorites');
