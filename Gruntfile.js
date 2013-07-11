@@ -192,7 +192,7 @@ module.exports = function( grunt ) {
     server: {
       local: {
         options: {
-          port: 8080,
+          port: 8888,
           vhost: 'localhost',
           base: 'src/www',
           apiPrefix: '/api*'

@@ -55,7 +55,7 @@ define(function(require) {
       if (response.listings && response.listings.length) {
         data = response;
         data.items = response.listings;
-        data.page = response.page;
+        data.page = response.page;  
         data.lastFetchedModels = response.listings;
       }
       return data;
@@ -67,7 +67,6 @@ define(function(require) {
         pageTitle: this.getPageTitle.bind(this)
       });
       if (!this.get('placeName')) {
-
         this.set('placeName', this.getPlaceName.bind(this));
       }
     },
