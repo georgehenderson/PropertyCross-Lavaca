@@ -4,10 +4,10 @@
   </ul>
   <div class="load-more {?hasMoreResults}has-more{/hasMoreResults}">
     {?hasMoreResults}
-      <div>Load more...</div>
-      <div>Results for {longTitle}, showing {#items}{@eq key="0" value="{$idx}"}{$len}{/eq}{/items} of {total_results} properties</div>
+      <div class="loading-text">Load more...</div>
+      <div class="results">Results for {longTitle}, showing {#items}{@eq key="0" value="{$idx}"}{$len}{/eq}{/items} of {total_results} properties</div>
     {:else}
-      <span>No More Results</span>
+      <div class="results">No More Results</div>
     {/hasMoreResults}
   </div>
 </div>

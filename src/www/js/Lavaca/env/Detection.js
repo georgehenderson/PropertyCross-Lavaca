@@ -53,6 +53,6 @@ define(function(require) {
       el.toggleClass(feature, typeof condition === 'function' ? condition() : condition);
     }
   };
-  Detection.animationEnabled = !Detection.android;
+  Detection.animationEnabled = true;
   return Detection;
 });

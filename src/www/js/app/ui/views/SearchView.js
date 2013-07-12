@@ -47,7 +47,7 @@ define(function(require) {
       var search = this.model.get('search'),
           listings = search ? search.listings : [];
       this.redraw('.search-lists');
-      if (listings.length) {
+      if (listings && listings.length) {
         router.exec('/listings/' + search.locations[0].place_name, null, {
           listings: listings,
           search: this.model.get('search')

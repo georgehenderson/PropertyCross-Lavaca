@@ -220,3 +220,118 @@
   -webkit-transition-delay: @arguments;
   -o-transition-delay: @arguments;
 }
+@-webkit-keyframes rotate-discrete {
+    0% {
+      -webkit-transform: rotate(-15deg); 
+    }
+    7.7% {
+       -webkit-transform: rotate(-45deg);     
+    }
+    15.4% {
+       -webkit-transform: rotate(-75deg);     
+    }
+    23.1% {
+       -webkit-transform: rotate(-105deg);     
+    }
+    30.8% {
+       -webkit-transform: rotate(-135deg);     
+    }
+    38.5% {
+       -webkit-transform: rotate(-165deg);     
+    }
+    46.2% {
+       -webkit-transform: rotate(-195deg);     
+    }
+    53.9% {
+       -webkit-transform: rotate(-225deg);     
+    }
+    61.6% {
+       -webkit-transform: rotate(-255deg);     
+    }
+    69.3% {
+       -webkit-transform: rotate(-285deg);     
+    }
+    77% {
+       -webkit-transform: rotate(-315deg);     
+    }
+    84.7% {
+       -webkit-transform: rotate(-345deg);     
+    }
+    100% {
+       -webkit-transform: rotate(-375deg);     
+    }
+}
+@-webkit-keyframes rotate-discrete-reverse {
+    0% {
+      -webkit-transform: rotate(15deg); 
+    }
+    7.7% {
+       -webkit-transform: rotate(45deg);     
+    }
+    15.4% {
+       -webkit-transform: rotate(75deg);     
+    }
+    23.1% {
+       -webkit-transform: rotate(105deg);     
+    }
+    30.8% {
+       -webkit-transform: rotate(135deg);     
+    }
+    38.5% {
+       -webkit-transform: rotate(165deg);     
+    }
+    46.2% {
+       -webkit-transform: rotate(195deg);     
+    }
+    53.9% {
+       -webkit-transform: rotate(225deg);     
+    }
+    61.6% {
+       -webkit-transform: rotate(255deg);     
+    }
+    69.3% {
+       -webkit-transform: rotate(285deg);     
+    }
+    77% {
+       -webkit-transform: rotate(315deg);     
+    }
+    84.7% {
+       -webkit-transform: rotate(345deg);     
+    }
+    100% {
+       -webkit-transform: rotate(375deg);     
+    }
+}
+.loading-animations {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 2rem;
+  height: 2rem;
+  @assets_url: './assets';
+  -webkit-mask-image: ~"url(@{assets_url}/img/loader_gradient-2x.png)";
+  -webkit-mask-size: 2rem 2rem;
+  .animation-name(rotate-discrete-reverse);
+  .animation-iteration-count(infinite);
+  .animation-duration(1s);
+  .animation-timing-function(step-start);
+  .item-01 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: ~"url(@{assets_url}/img/loader_ticks-2x.png)";
+    background-size: 2rem 2rem;
+    display: block;
+    .animation-name(rotate-discrete);
+    .animation-iteration-count(infinite);
+    .animation-duration(1s);
+    .animation-timing-function(step-start);
+  }
+  .item-02,
+  .item-03,
+  .item-04 {
+    display: none;
+  }
+}

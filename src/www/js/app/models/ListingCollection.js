@@ -53,12 +53,13 @@ define(function(require) {
       }
     },
     responseFilter: function(response) {
-      var data = {};
+      var data = {},
+          count = this.count();
       if (response.listings && response.listings.length) {
         data = response;
         data.items = response.listings;
         data.page = response.page;  
-        data.lastFetchedModels = response.listings;
+        data.lastFetchedIndex = count;
       }
       return data;
     },
