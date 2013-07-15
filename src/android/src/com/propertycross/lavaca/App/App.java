@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.Lavaca.App;
+package com.propertycross.lavaca.App;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
