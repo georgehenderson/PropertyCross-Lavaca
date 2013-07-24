@@ -7,6 +7,7 @@ define(function(require) {
   var localStore = require('./cache/localStore');
   var stateModel = require('app/models/StateModel');
   var headerView = require('app/ui/views/controls/HeaderView');
+  require('lavaca/ui/LoadingIndicator');
   require('lavaca/ui/DustTemplate');
   require('jquery-mobile/events/touch');
   require('jquery-mobile/events/orientationchange');

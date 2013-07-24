@@ -127,7 +127,7 @@ module.exports = function(grunt) {
           .then(function run() {
             return _runCommands([
               {
-                cmd: 'android update project -p ' + buildDir + ' --target 1',
+                cmd: 'android update project -p ' + buildDir + ' --target 11',
                 msg: 'Updating Android project...'
               },
               {

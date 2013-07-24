@@ -2,7 +2,8 @@ define(function(require) {
 
   var View = require('lavaca/mvc/View'),
       $ = require('$'),
-      stateModel = require('app/models/StateModel');
+      stateModel = require('app/models/StateModel'),
+      router = require('lavaca/mvc/Router');
   require('rdust!templates/controls/header-view');
 
   /**
@@ -15,7 +16,7 @@ define(function(require) {
 
       this.mapEvent({
         '.toggle-favorite': {tap: this.onTapToggleFavorite.bind(this)},
-        '.back': {tap: function() { history.back(); }},
+        '.back': {tap: function() { if (!router.locked) { history.back(); } }},
         model: {
           reset: this.onModelReset.bind(this)
         }

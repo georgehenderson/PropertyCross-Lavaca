@@ -49,15 +49,16 @@ define(function(require) {
       this.redraw('.load-more');
     },
     renderCells: function() {
-      var template = Template.get('templates/listings-list-item');
-      template.render({items: this.model.get('lastFetchedModels')})
+      var template = Template.get('templates/listings-list-item'),
+          modelsClone = this.model.toObject().items.slice();
+      template.render({items: modelsClone.splice(this.model.get('lastFetchedIndex'), 20)})
         .success(function(html) {
           this.el.find('ul').append(html);
           History.replace(this.model.toObject(), this.model.get('pageTitle'), location.hash.split('#')[1]);
         }.bind(this));
     },
     loadMore: function() {
-      this.el.find('.load-more').html('Loading ...');
+      this.el.find('.loading-text').html('<div>Loading ...</div>');
       this.model.fetch();
     },
     onTapLoadMore: function(e) {
