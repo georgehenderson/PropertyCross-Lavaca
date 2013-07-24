@@ -57,10 +57,19 @@ define(function(require) {
         this.redirect('/');
         return;
       }
+<<<<<<< HEAD
+      var model = model ? new Model(model) : params.listing,
+          title = model.get('title').split(','),
+          title = title[0] + ", " + title[1];
+      return this
+        .view(null, ListingView, model)
+        .then(this.updateState(model.toObject(), title, params.url, {showFavoriteButton: true, favoriteId: model.get('guid')}));
+=======
       model = model ? new ListingModel(model) : params.listing;
       return this
         .view(null, ListingView, model)
         .then(this.updateState(model.toObject(), model.get('shortTitle'), params.url, {showFavoriteButton: true, favoriteId: model.get('guid')}));
+>>>>>>> 5495efc86a52461bbb41c02b69f1904b67ac4eba
     },
     favorites: function(params, model) {
       var favorites = stateModel.get('favorites');
